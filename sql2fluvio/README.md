@@ -31,22 +31,3 @@ Arguments:
 
 Sample usage:
 `sql2fluvio  dbfile.sqlite3 test.sql ingest-topic`
-
-### v0.1.0
-```
-Usage: sql2fluvio <DB_PATH> <TABLE_NAME> <TOPIC_NAME> [SQL_FILE_PATH]
-
-Arguments:
-  <DB_PATH>        Path to the SQL database file
-  <TABLE_NAME>     table name (used to create col -> json mapping)
-  <TOPIC_NAME>     topic to produce to
-  [SQL_FILE_PATH]  Path to a generic SQL query  (not supported yet)
-```
-
-Sample usage:
-```
-    cargo run --release -- \
-		data/test.sqlite3 \
-		samples_view \
-		samples
-```
