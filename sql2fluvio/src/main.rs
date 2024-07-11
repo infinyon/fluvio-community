@@ -58,7 +58,7 @@ async fn create_topic(fluvio: &Fluvio, topic_name: &str) -> Result<()> {
     }];
     let listing = admin.list::<TopicSpec, ListFilter>(list_filters).await?;
     if listing.is_empty() {
-        println!("Creating {topic_name}");
+        println!("Creating topic '{topic_name}'");
         let spec: TopicSpec = ReplicaSpec::Computed(TopicReplicaParam {
             partitions: 1,
             replication_factor: 1,
@@ -198,7 +198,7 @@ mod tests {
     #[ignore]
     #[tokio::test]
     async fn ingest_values_via_sql() -> Result<()> {
-        let db_path = "../../data/test.sqlite3";
+        let db_path = "test/test.db";
         let sql_file = "test.sql";
         let topic_name = TEST_TOPIC;
         let fluvio = Fluvio::connect().await?;

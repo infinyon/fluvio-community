@@ -1,0 +1,34 @@
+default:
+	just -l
+
+dbfile:='tests/test.db'
+topic:='testsql'
+smoke: reset-cluster
+	#!/bin/sh
+	set -e
+	cargo build --release
+	time bash -c "cargo run --release -- \
+		{{dbfile}} \
+		tests/smoke.sql \
+		{{topic}}"
+	fluvio consume {{topic}} -Bd
+
+topic2:='donkey-kong'
+smoke2:
+	#!/bin/sh
+	set -e
+	cargo build --release
+	time bash -c "cargo run --release -- \
+		{{dbfile}} \
+		tests/smoke2.sql \
+		{{topic2}}"
+	fluvio consume {{topic2}} -Bd
+
+def_nspu:="1"
+# warning this will delete your local cluster
+reset-cluster NSPU=def_nspu: clean
+	fluvio profile switch local
+	fluvio cluster delete --force
+	fluvio cluster start --spu {{NSPU}}
+
+clean:
