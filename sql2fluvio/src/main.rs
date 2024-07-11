@@ -1,5 +1,5 @@
 use std::sync::Arc;
-use std::time;
+// use std::time;
 
 use anyhow::{Context, Result};
 use clap::Parser;
@@ -13,10 +13,10 @@ use serde_json::Number as JsonNumber;
 use tokio_rusqlite::Connection;
 
 const FACTOR_1M: usize = 1024 * 1024;
-const PRODUCE_BATCH_SIZE_BYTES: usize = 10 * FACTOR_1M;
-const PRODUCE_TIMEOUT_MS: u64 = 5 * 60_000;
-const PRODUCE_LINGER_MS: u64 = 1_000;
-const PRODUCE_BATCH_N_QUEUE: usize = 2;
+const PRODUCE_BATCH_SIZE_BYTES: usize = 1 * FACTOR_1M;
+// const PRODUCE_TIMEOUT_MS: u64 = 5 * 60_000;
+// const PRODUCE_LINGER_MS: u64 = 1_000;
+// const PRODUCE_BATCH_N_QUEUE: usize = 2;
 
 #[derive(Parser, Debug)]
 #[clap(author, version, about, long_about = None)]
@@ -74,9 +74,9 @@ async fn create_topic(fluvio: &Fluvio, topic_name: &str) -> Result<()> {
 
 async fn get_fluvio_producer(fluvio: &Fluvio, topic_name: &str) -> Result<fluvio::TopicProducer> {
     let pconfig = fluvio::TopicProducerConfigBuilder::default()
-  //      .batch_size(PRODUCE_BATCH_SIZE_BYTES)
+       .batch_size(PRODUCE_BATCH_SIZE_BYTES)
+       .compression(Compression::Gzip)
   //      .batch_queue_size(PRODUCE_BATCH_N_QUEUE)
-        .compression(Compression::Gzip)
   //      .linger(time::Duration::from_millis(PRODUCE_LINGER_MS))
   //      .timeout(time::Duration::from_millis(PRODUCE_TIMEOUT_MS))
         .build()?;

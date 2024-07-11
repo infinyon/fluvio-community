@@ -46,7 +46,7 @@ Arguments:
 Sample usage:
 ```
     cargo run --release -- \
-		data/test-UKOP.sqlite3 \
+		data/test.sqlite3 \
 		samples_view \
 		samples
 ```
