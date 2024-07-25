@@ -1,0 +1,51 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Apache Echarts: WebSocket Plot</title>
+    <!-- try apache echarts -->
+    <script src=" https://cdn.jsdelivr.net/npm/echarts@5.4.2/dist/echarts.min.js "></script>
+</head>
+<body>
+    <div id="chart" style="width: 600px; height: 400px;"></div>
+    <script>
+        // Initialize ECharts chart
+        // https://echarts.apache.org/handbook/en/how-to/chart-types/scatter/basic-scatter
+        var chart = echarts.init(document.querySelector("#chart"));
+
+        // Set chart options
+        var option = {
+          dataZoom: [
+            {
+              type: 'slider'
+            },
+            {
+              type: 'inside'
+            }
+          ],
+          xAxis: {
+            type: 'value'
+          },
+          yAxis: {
+            type: 'value'
+          },
+          series: [{
+            // type: 'line', // a little bit of update justter on ff
+            type: 'scatter',
+            data: []
+          }]
+        };
+        chart.setOption(option);
+
+        // Connect to WebSocket
+        const ws = new WebSocket("ws://localhost:3000/ws/foo");
+
+        // Handle WebSocket message
+        ws.onmessage = (event) => {
+            const data = JSON.parse(event.data);
+            option.series[0].data.push([data.x, data.y]);
+            chart.setOption(option);
+        };
+    </script>
+</body>
+</html>
