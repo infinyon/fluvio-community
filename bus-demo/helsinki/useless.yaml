@@ -1,0 +1,12 @@
+name: useless-fact
+type: http-source
+topic: random-fact
+create_topic: true
+version: latest
+parameters:
+  endpoint: https://uselessfacts.jsph.pl/random.txt?language=en
+  method: GET
+  body: ""
+  interval: "2s"
+producer:
+  linger: 0ms

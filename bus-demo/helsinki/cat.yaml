@@ -1,0 +1,9 @@
+name: cat-facts
+type: http-source
+topic: cat-facts
+version: 0.4.2
+direction: source
+parameters:
+  endpoint: https://catfact.ninja/fact
+  interval: 10s
+

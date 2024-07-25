@@ -1,0 +1,11 @@
+version: 0.5.2
+name: helsinki-bus 
+type: mqtt-source
+topic: helsinki
+direction: source
+create-topic: true
+parameters:
+  mqtt_topic: "/hfp/v2/journey/ongoing/vp/+/+/+/#"
+  payload_output_type: json
+secrets:
+  MQTT_URL: mqtt://mqtt.hsl.fi

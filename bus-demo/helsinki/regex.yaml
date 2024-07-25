@@ -1,0 +1,4 @@
+transforms:
+  - uses: infinyon/regex-filter@0.1.0
+    with:
+      regex: "a"
