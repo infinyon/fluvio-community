@@ -1,10 +1,10 @@
 use poem::Route;
 
 mod chart;
-mod ws;
+mod http_stream;
 
 pub fn app_routes() -> Route {
     Route::new()
         .nest_no_strip("/chart", chart::route())
-        .nest_no_strip("/ws", ws::route())
+        .nest_no_strip("/http-stream", http_stream::route())
 }
